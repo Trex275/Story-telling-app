@@ -1,5 +1,6 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Platform, SafeAreaView, StatusBar, Image } from "react-native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export default class Readscreen extends React.Component {
     render() {

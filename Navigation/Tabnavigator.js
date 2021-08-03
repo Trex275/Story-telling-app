@@ -3,9 +3,8 @@ import { StyleSheet } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { RFValue } from "react-native-responsive-fontsize";
-
-import Writescreen from "../Screens/Write"
-import Readscreen from "../Screens/Read";
+import Feed from "../Screens/Feed";
+import CreateStory from "../Screens/CreateStory";
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTabNavigator = () => {
@@ -34,8 +33,8 @@ const BottomTabNavigator = () => {
       activeColor={"#ee8249"}
       inactiveColor={"gray"}
     >
-      <Tab.Screen name="Feed" component={Readscreen} />
-      <Tab.Screen name="Create Story" component={Writescreen} />
+      <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Create Story" component={CreateStory}/>
     </Tab.Navigator>
   );
 };

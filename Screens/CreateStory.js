@@ -27,11 +27,7 @@ export default class CreateStory extends Component {
     this.state = {
       fontsLoaded: false,
       previewImage: "image_1",
-      dropdownHeight: 40,
-      description: '',
-      story: '',
-      moral: '',
-      title: ''
+      dropdownHeight: 40
     };
   }
 
@@ -48,7 +44,6 @@ export default class CreateStory extends Component {
     if (!this.state.fontsLoaded) {
       return <AppLoading />;
     } else {
-
       let preview_images = {
         image_1: require("../assets/story_image_1.png"),
         image_2: require("../assets/story_image_2.png"),
@@ -117,28 +112,51 @@ export default class CreateStory extends Component {
                   }
                 />
               </View>
-              <TextInput style={[styles.inputFont]}
-                onChangeText={title => { this.setState({ title: title }) }}
+
+              <TextInput
+                style={styles.inputFont}
+                onChangeText={title => this.setState({ title })}
                 placeholder={"Title"}
-                placeholderTextColor={"white"}></TextInput>
-              <TextInput style={[styles.inputFont, styles.inputFontExtram, styles.inputTextBig]}
-                onChangeText={description => { this.setState({ description: description }) }}
+                placeholderTextColor="white"
+              />
+
+              <TextInput
+                style={[
+                  styles.inputFont,
+                  styles.inputFontExtra,
+                  styles.inputTextBig
+                ]}
+                onChangeText={description => this.setState({ description })}
+                placeholder={"Description"}
                 multiline={true}
                 numberOfLines={4}
-                placeholder={"Description"}
-                placeholderTextColor={"white"}></TextInput>
-              <TextInput style={[styles.inputFont, styles.inputFontExtram, styles.inputTextBig]}
-                onChangeText={story => { this.setState({ story: story }) }}
+                placeholderTextColor="white"
+              />
+              <TextInput
+                style={[
+                  styles.inputFont,
+                  styles.inputFontExtra,
+                  styles.inputTextBig
+                ]}
+                onChangeText={story => this.setState({ story })}
+                placeholder={"Story"}
                 multiline={true}
                 numberOfLines={20}
-                placeholder={"Story"}
-                placeholderTextColor={"white"}></TextInput>
-              <TextInput style={[styles.inputFont, styles.inputFontExtram, styles.inputTextBig]}
-                onChangeText={moral => { this.setState({ moral: moral }) }}
+                placeholderTextColor="white"
+              />
+
+              <TextInput
+                style={[
+                  styles.inputFont,
+                  styles.inputFontExtra,
+                  styles.inputTextBig
+                ]}
+                onChangeText={moral => this.setState({ moral })}
+                placeholder={"Moral of the story"}
                 multiline={true}
                 numberOfLines={4}
-                placeholder={"Moral"}
-                placeholderTextColor={"white"}></TextInput>
+                placeholderTextColor="white"
+              />
             </ScrollView>
           </View>
           <View style={{ flex: 0.08 }} />
@@ -190,8 +208,20 @@ const styles = StyleSheet.create({
     marginVertical: RFValue(10),
     resizeMode: "contain"
   },
-  inputFont: { height: RFValue(40), borderColor: "white", borderWidth: RFValue(1), borderRadius: RFValue(10), paddingLeft: RFValue(10), color: "white", fontFamily: "Bubblegum-Sans" }, inputFontExtra: { marginTop: RFValue(15) }, inputTextBig: { textAlignVertical: "top", padding: RFValue(5) }
-
-
-
+  inputFont: {
+    height: RFValue(40),
+    borderColor: "white",
+    borderWidth: RFValue(1),
+    borderRadius: RFValue(10),
+    paddingLeft: RFValue(10),
+    color: "white",
+    fontFamily: "Bubblegum-Sans"
+  },
+  inputFontExtra: {
+    marginTop: RFValue(15)
+  },
+  inputTextBig: {
+    textAlignVertical: "top",
+    padding: RFValue(5)
+  }
 });

@@ -9,7 +9,9 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Dimensions
+  Dimensions,
+  Alert,
+  Button
 } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -27,6 +29,7 @@ export default class CreateStory extends Component {
     this.state = {
       fontsLoaded: false,
       previewImage: "image_1",
+      light_theme: true,
       dropdownHeight: 40
     };
   }
@@ -36,8 +39,43 @@ export default class CreateStory extends Component {
     this.setState({ fontsLoaded: true });
   }
 
+  async fetchUser() {
+    var theme, name, Image
+    await firebase.database().ref("/users/" + firebase.auth().currentUser.uid)
+      .on("value", function (snapshot) {
+        theme = snapshot.val().current_theme
+      });
+    this.setState({
+      light_theme: theme === "light" ? true : false,
+
+    })
+  }
+
+  async addStory() {
+    if (this.state.title && this.state.description && this.state.moral && this.state.story) {
+      var storyData = {
+        preview_image: this.state.previewImage,
+        title: this.state.title,
+        description: this.state.description,
+        story: this.state.story,
+        moral: this.state.moral,
+        author: firebase.auth().currentUser.displayName,
+        created_on: new Date(),
+        author_uid: firebase.auth().currentUser.uid,
+        likes: 0
+      }
+      await firebase.database().ref("/posts/" + Math.random().toString(36).slice(2)).setState(storyData).then(funtion snapshot(){})
+      this.props.setUpdateTotrue();
+      this.props.navigation.navigate("Feed")
+    }
+    else {
+      Alert.alert("Error", "All fields are required", [{ text: "OK", onPress: () => { console.log("Ok Pressed") } }], { cancelable: false })
+    }
+  }
+
   componentDidMount() {
     this._loadFontsAsync();
+    this.fetchUser();
   }
 
   render() {
@@ -157,6 +195,9 @@ export default class CreateStory extends Component {
                 numberOfLines={4}
                 placeholderTextColor="white"
               />
+              <View>
+                <Button title="Submit" onPress={() => this.addStory()} />
+              </View>
             </ScrollView>
           </View>
           <View style={{ flex: 0.08 }} />

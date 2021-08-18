@@ -25,7 +25,9 @@ export default class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fontsLoaded: false
+      fontsLoaded: false,
+      light_theme: true,
+      stories : []
     };
   }
 
@@ -36,7 +38,23 @@ export default class Feed extends Component {
 
   componentDidMount() {
     this._loadFontsAsync();
+    this.fetchStories();
+    this.fetchUser();
   }
+  fetchStories =() =>{
+
+  }
+
+  fetchUser = () => {
+    let theme;
+    firebase
+      .database()
+      .ref("/users/" + firebase.auth().currentUser.uid)
+      .on("value", snapshot => {
+        theme = snapshot.val().current_theme;
+        this.setState({ light_theme: theme === "light" });
+      });
+  };
 
   renderItem = ({ item: story }) => {
     return <StoryCard story={story} navigation={this.props.navigation} />;

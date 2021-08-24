@@ -114,6 +114,7 @@ export default class LoginScreen extends Component {
         scopes: ["profile", "email"]
       });
 
+
       if (result.type === "success") {
         this.onSignIn(result);
         return result.accessToken;
